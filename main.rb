@@ -1,20 +1,21 @@
-path_array = []
-path = ''
-file_name = 'all_objects'
+# Склейка нескольких txt файлов в один
 
-files = Dir.glob("#{path}*.txt")
+time = Time.now.to_s.split(' ').first(2).join('_').gsub(':', '-')
+objects_array = []
 
-files.each do |file_path|
-  path_array << file_path
-end
+path = ''                             # задать директорию с файлами
+file_name = "all_objects_#{time}"     # задать имя выходного файла
+file_paths = Dir.glob("#{path}*.txt") # собираем массив путей до каждого файла
 
-p path_array
+p file_paths
 
-path_array.each do |path|
+# Проходимся по каждому пути, читаем каждый файл и записываем в новый массив
+file_paths.each do |path|
   objects = File.open("#{path}", 'r') { |file| file.readlines }
   objects_array << objects.map! { |object| object.strip }
 end
 
+# Добавляем записи с новой строки в выходной файл
 objects_array.map do |object|
   object.map do |obj|
     File.write("#{file_name}.txt", "#{obj}\n", mode: 'a')
