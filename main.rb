@@ -1,8 +1,8 @@
 # Склейка нескольких txt файлов в один
 
-time = Time.now.to_s.split(' ').first(2).join('_').gsub(':', '-')
+time = Time.now.strftime("%d-%m-%Y_%H-%M-%S")
 
-path = ''                             # задать директорию с файлами
+path = ''                             # задать абсолютную директорию с файлами
 file_name = "all_objects_#{time}"     # задать имя выходного файла
 file_paths = Dir.glob("#{path}*.txt") # собираем массив путей до каждого файла
 
